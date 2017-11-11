@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Counter App</title>
+</head>
+
+<body>
+
+<script type="text/javascript">
+    var count = 0;
+
+    function increaseCount() {
+        count += 1;
+        document.getElementById('clickety').innerHTML = count;
+    }
+</script>
+
+<style>
+    .center {
+        text-align: center;
+    }
+    #clickety {
+        padding: 30px 100px;
+        border-radius: 50%;
+        font-size: 50px;
+    }
+</style>
+
+    <div class="center">
+        <h1>Click on the button to increase the button number!</h1>
+    </div>
+
+    <div class="center">
+        <button type="button" id="clickety" onclick="increaseCount()">0</button>
+    </div>
+</body>
+
+</html>
