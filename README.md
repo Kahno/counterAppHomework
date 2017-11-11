@@ -98,7 +98,7 @@ Policy contents:
 
 Before launching, create an SSH key pair (in our case we set the key name as `homework`) for later usage.
 
-## 4. Once the EC2 instance is launched, log into it and install the CodeDeploy agent.
+## 4. Once the EC2 instance is launched, log into it and install the CodeDeploy agent
 * Select the instance from the list of instances and click Connect
 * Follow the immediate instructions to connect to the instance with our previously created `homework` key.
 * After logging in, input the following commands:
@@ -110,14 +110,15 @@ Before launching, create an SSH key pair (in our case we set the key name as `ho
         * input our AWS Access Secret Key Id
         * input our region (in our case we chose `eu-west-2`)
         * input our output (in our case we chose `json`)
-    - `aws s3 cp s3://aws-codedeploy-eu-west-2/latest/install . --region eu-west-2` - (this gets the proper installation file)
+    - `wget https://aws-codedeploy-eu-west-2.s3.amazonaws.com/latest/install` - (this gets the proper installation file)
     - `chmod +x ./install` - (this makes the installation file executable)
     - `./install auto` - (this installs the CodeDeploy agent)
 
-## 5. Go to the CodeDeploy console on AWS and create a Custom Deployment.
+## 5. Go to the CodeDeploy console on AWS and click Create application
 * Set the following:
     - Application Name: `CodeDeployGithubHomework`
     - Deployment Group Name: `production`
+    - Select In-place deployment
     - Our previous EC2 instance (in our case we use the previously set key-value pair `Name`: `CodeDeployInstanceHomework`)
     - Service Role: `CodeDeployServiceRole` (created previously)
 * Choose Create Application.
@@ -144,23 +145,23 @@ Policy contents:
         {
             "Effect": "Allow",
             "Action": "codedeploy:RegisterApplicationRevision",
-            "Resource": "arn:aws:codedeploy:eu-west-2:255577039930:application:CodeDeployGithubApp"
+            "Resource": "arn:aws:codedeploy:eu-west-2:255577039930:application:CodeDeployGithubHomework"
         },
         {
             "Effect": "Allow",
             "Action": "codedeploy:GetApplicationRevision",
-            "Resource": "arn:aws:codedeploy:eu-west-2:255577039930:application:CodeDeployGithubApp"
+            "Resource": "arn:aws:codedeploy:eu-west-2:255577039930:application:CodeDeployGithubHomework"
         },
         {
             "Effect": "Allow",
             "Action": "codedeploy:CreateDeployment",
-            "Resource": "arn:aws:codedeploy:eu-west-2:255577039930:deploymentgroup:CodeDeployGithubApp/production"
+            "Resource": "arn:aws:codedeploy:eu-west-2:255577039930:deploymentgroup:CodeDeployGithubHomework/production"
         }
     ]
 }
 ```
 
-## 7. Create an IAM user.
+## 7. Create an IAM user
 * Set the following:
     - User name: `CodeDeployGithubUser`
     - Access type: `Programmatic access`
